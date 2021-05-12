@@ -94,7 +94,7 @@ def addbook_view(request):
             return render(request, 'library/bookadded.html')
     return render(request, 'library/addbook.html', {'form': form})
 
-#view book
+#view books
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def viewbook_view(request):
