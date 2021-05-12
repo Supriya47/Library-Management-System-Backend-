@@ -101,4 +101,14 @@ def viewbook_view(request):
     books = models.Book.objects.all()
     return render(request, 'library/viewbook.html', {'books': books})
 
-
+# delete view 
+from .models import Book
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def DeleteBookView(request, book_id):
+    if request.method == "POST":
+        book = get_object_or_404(Book, pk=book_id)
+        book.delete()
+        return redirect("viewbook")
+    else:
+        return redirect("viewbook")
