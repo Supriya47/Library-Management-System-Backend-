@@ -112,6 +112,7 @@ def DeleteBookView(request, book_id):
         return redirect("viewbook")
     else:
         return redirect("viewbook")
+        #end delete book view
 #update book
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
