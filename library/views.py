@@ -112,3 +112,16 @@ def DeleteBookView(request, book_id):
         return redirect("viewbook")
     else:
         return redirect("viewbook")
+#update book
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def UpdateBookView(request, book_id):
+    # get the book and form
+    book = Book.objects.get(pk=book_id)
+    updateForm = forms.BookForm(instance=book)
+    if request.method == "POST":
+        updateForm = forms.BookForm(request.POST or None,instance=book)
+        updateForm.save()
+        return redirect('viewbook')
+    return render(request, 'library/editbook.html',{'form':updateForm})
+    #end update book
