@@ -188,3 +188,15 @@ def viewissuedbook_view(request):
             li.append(t)
 
     return render(request, 'library/viewissuedbook.html', {'li': li})
+    # search book view
+@login_required
+def SearchBookView(request):
+    if request.method == "GET":
+        search_query = request.GET.get("book_name",None)
+        if search_query != '' or search_query is not None:
+            search_results = Book.objects.filter(name__icontains=search_query)
+            return render(request, 'library/search.html',{'books':search_results,'search_query':search_query})
+        return render(request, 'library/search.html')
+    return render(request, 'library/search.html',{'search_query':"No Match Found."})
+#end search book
+
